@@ -1,4 +1,4 @@
-defmodule Counter do
+defmodule Increaser.Counter do
   def new(input) do
     String.to_integer(input)
   end

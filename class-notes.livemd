@@ -1,5 +1,74 @@
 # CRC: input |> construct |> reduce |> convert
 
+```elixir
+import IEx.Helpers
+
+```
+
+## Workshop Goals
+
+Topics (ADD)
+
+* Blind spots
+  * [x] mutability
+  * [x] keyword list
+  * [x] sigils
+  * [ ] for comprehension
+  * [x] strings/charlists
+  * [x] protocols
+* OTP and Behavior
+  * [x] Base Elixir (counter core)
+  * [x] GenServers 
+    * [x] Supervision
+    * [x] Behaviours
+* Phoenix Lifecycle
+  * [x] Endpoints
+  * [x] Application
+  * [ ] LiueView
+  * [ ] GraphQL
+    ```
+    - [ ] Batch
+    ```
+  * [ ] Open Telemetry
+* LLM
+  * [x] throw it away
+  * [x] Red/Green indicators
+  * [ ] Skills
+  * [x] Usage Rules
+  * [x] Tidewave
+
+<!-- livebook:{"break_markdown":true} -->
+
+Charlists
+
+<!-- livebook:{"break_markdown":true} -->
+
+charlists are a blind spot because Ruby uses both " and ' for strings, but in Elixir they are different!
+
+```elixir
+<<99, 97, ?t>>
+
+```
+
+
+
+```elixir
+[99, 97, 116]
+
+```
+
+```elixir
+'cat'
+```
+
+```elixir
+"cat" == ~c"cat"
+```
+
+```elixir
+[99, 97, 116]
+```
+
 ## data type definition.
 
 ```elixir
@@ -57,64 +126,77 @@ input
 
 ```
 
-## Workshop Goals
-
-Topics (ADD)
-
-* Blind spots
-  * [x] mutability
-  * [ ] keyword list
-  * [ ] sigils
-  * [ ] for comprehension
-  * [x] strings/charlists
-* OTP and Behavior
-  * [x] Base Elixir (counter core)
-  * [x] GenServers 
-    * [x] Supervision
-    * [x] Behaviours
-* Phoenix Lifecycle
-  * [ ] Endpoints
-  * [ ] Application
-  * [ ] GraphQL
-    ```
-    - [ ] Batch
-    ```
-  * [ ] OpenTelemetry
-* LLM
-  * [x] throw it away
-  * [ ] Red/Green indicators
-  * [ ] Skills
-  * [ ] Usage Rules
-  * [ ] Tidewave
-
-<!-- livebook:{"break_markdown":true} -->
-
-Charlists
-
-<!-- livebook:{"break_markdown":true} -->
-
-charlists are a blind spot because Ruby uses both " and ' for strings, but in Elixir they are different!
+## sigils
 
 ```elixir
-<<99, 97, ?t>>
-
-```
-
-
-
-```elixir
-[99, 97, 116]
-
+~w(one two three)
 ```
 
 ```elixir
-'cat'
+h sigil_w()
+```
+
+## keyword lists
+
+```elixir
+{:one, 1}
 ```
 
 ```elixir
-"cat" == ~c"cat"
+[{:one, 1}, {:two, 2}]
 ```
 
 ```elixir
-[99, 97, 116]
+{:module, :function, arg1: :arg}
+```
+
+```elixir
+{:vancouver, :ca, planet: :world, not: :usa}
+```
+
+```elixir
+defmodule Greeter do
+  def say(phrase), do: IO.puts(phrase)
+end
+```
+
+```elixir
+defmodule Greeter2 do
+  def say(phrase) do
+     IO.puts(phrase)
+  end
+end
+```
+
+```elixir
+defmodule Greeter3 do
+  def(say(phrase), do: IO.puts(phrase))
+end
+```
+
+```elixir
+defmodule Greeter4 do
+  def(say(phrase), [do: IO.puts(phrase)])
+end
+```
+
+```elixir
+defmodule Greeter5 do
+  def(say(phrase), [{:do, IO.puts(phrase)}])
+end
+```
+
+```elixir
+x = 4
+if x == 4 do
+  :something
+else
+  :something_else
+end
+
+if x == 4, do: :something, else: :something_else
+```
+
+```elixir
+exports(Kernel)
 ```

@@ -79,6 +79,7 @@ Topics (ADD)
     ```
     - [ ] Batch
     ```
+  * [ ] OpenTelemetry
 * LLM
   * [x] throw it away
   * [ ] Red/Green indicators

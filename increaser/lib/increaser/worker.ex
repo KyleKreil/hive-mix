@@ -2,30 +2,38 @@ defmodule Increaser.Worker do
 use GenServer
   alias Increaser.Counter
 
-  @impl true
-  def init(init_arg) do
-    {:ok, Counter.new(init_arg)}
+  @impl GenServer
+  def init(name) do
+    IO.puts("Starting worker with name: #{name}")
+    {:ok, Counter.new("0")}
   end
 
-  def start_link(input) do
-    GenServer.start_link(__MODULE__, input, name: __MODULE__)
+  def start_link(name) do
+    GenServer.start_link(__MODULE__, name, name: name)
   end
 
-  def show() do
-    GenServer.call(__MODULE__, :show)
+  def child_spec(name) do
+    %{
+      id: name,
+      start: {__MODULE__, :start_link, [name]}
+    }
   end
 
-  def inc() do
-    GenServer.cast(__MODULE__, :inc)
+  def show(counter \\ __MODULE__) do
+    GenServer.call(counter, :show)
   end
 
-  @impl true
+  def inc(counter \\ __MODULE__) do
+    GenServer.cast(counter, :inc)
+  end
+
+  @impl GenServer
   def handle_call(:show, _from, state) do
     result = Counter.show(state)
     {:reply, result, state}
   end
 
-  @impl true
+  @impl GenServer
   def handle_cast(:inc, state) do
     result = Counter.add(state, 1)
     {:noreply, result}

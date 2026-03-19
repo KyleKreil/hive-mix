@@ -9,7 +9,11 @@ defmodule Increaser.Application do
   def start(_type, _args) do
     children = [
       # Starts a worker by calling: Increaser.Worker.start_link(arg)
-      {Increaser.Worker, "42"}
+      {Increaser.Worker, :cats},
+      {Increaser.Worker, :cows},
+      {Increaser.Worker, :dogs},
+      {Increaser.Worker, :pigs},
+      {Increaser.Worker, :chickens}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
